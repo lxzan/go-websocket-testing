@@ -1,0 +1,144 @@
+{
+   "agent": "nhooyr",
+   "behavior": "OK",
+   "behaviorClose": "OK",
+   "case": 41,
+   "closedByMe": false,
+   "createStats": true,
+   "createWirelog": true,
+   "description": "Send frame with reserved control <b>Opcode = 12</b> and non-empty payload.",
+   "droppedByMe": false,
+   "duration": 14,
+   "expectation": "The connection is failed immediately.",
+   "expected": {
+      "OK": []
+   },
+   "expectedClose": {
+      "closeCode": [
+         1002
+      ],
+      "closedByMe": false,
+      "requireClean": false
+   },
+   "failedByMe": false,
+   "httpRequest": "GET /connect HTTP/1.1\r\nUser-Agent: AutobahnTestSuite/0.8.2-0.10.9\r\nHost: 10.0.196.244:8002\r\nUpgrade: WebSocket\r\nConnection: Upgrade\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nSec-WebSocket-Key: RwE5DhWy1xnPtDEfFU7v+A==\r\nSec-WebSocket-Version: 13\r\n\r\n",
+   "httpResponse": "HTTP/1.1 101 Switching Protocols\r\nConnection: Upgrade\r\nSec-Websocket-Accept: 0R9RlLBdd8Cqf7tsZ0KKDJ2e2i0=\r\nUpgrade: websocket\r\n\r\n",
+   "id": "4.2.2",
+   "isServer": false,
+   "localCloseCode": 1000,
+   "localCloseReason": null,
+   "received": [],
+   "remoteCloseCode": 1002,
+   "remoteCloseReason": "received unknown opcode opcode(12)",
+   "reportCompressionRatio": false,
+   "reportTime": false,
+   "result": "Actual events match at least one expected.",
+   "resultClose": "Connection was properly closed",
+   "rxFrameStats": {
+      "8": 1
+   },
+   "rxOctetStats": {
+      "38": 1,
+      "129": 1
+   },
+   "started": "2023-02-15T17:06:43.388Z",
+   "trafficStats": null,
+   "txFrameStats": {
+      "8": 1,
+      "12": 1
+   },
+   "txOctetStats": {
+      "8": 1,
+      "29": 1,
+      "250": 1
+   },
+   "wasClean": true,
+   "wasCloseHandshakeTimeout": false,
+   "wasNotCleanReason": null,
+   "wasOpenHandshakeTimeout": false,
+   "wasServerConnectionDropTimeout": false,
+   "wirelog": [
+      [
+         "TO",
+         [
+            250,
+            "474554202f636f6e6e65637420485454502f312e310d0a557365722d4167656e743a204175746f6261686e5465737453756974652f302e382e322d302e31302e ..."
+         ],
+         false
+      ],
+      [
+         "RO",
+         [
+            129,
+            "485454502f312e312031303120537769746368696e672050726f746f636f6c730d0a436f6e6e656374696f6e3a20557067726164650d0a5365632d576562736f ..."
+         ]
+      ],
+      [
+         "TF",
+         [
+            23,
+            "reserved opcode payload"
+         ],
+         12,
+         true,
+         0,
+         "d467bca1",
+         null,
+         null,
+         false
+      ],
+      [
+         "TO",
+         [
+            29,
+            "8c97d467bca1a602cfc4a611d9c5f408ccc2bb03d981a406c5cdbb06d8"
+         ],
+         false
+      ],
+      [
+         "KL",
+         1
+      ],
+      [
+         "RO",
+         [
+            38,
+            "882403ea726563656976656420756e6b6e6f776e206f70636f6465206f70636f646528313229"
+         ]
+      ],
+      [
+         "RF",
+         [
+            36,
+            "0x03ea726563656976656420756e6b6e6f776e206f70636f6465206f70636f646528313229"
+         ],
+         8,
+         true,
+         0,
+         false,
+         null
+      ],
+      [
+         "TF",
+         [
+            2,
+            "0x03e8"
+         ],
+         8,
+         true,
+         0,
+         "174e2555",
+         null,
+         null,
+         false
+      ],
+      [
+         "TO",
+         [
+            8,
+            "8882174e255514a6"
+         ],
+         false
+      ]
+   ]
+}
