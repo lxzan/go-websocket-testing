@@ -1,0 +1,34 @@
+{
+  "outdir": "./reports/servers",
+  "servers": [
+    {
+      "outdir": "./reports/servers",
+      "servers": [
+        {
+          "agent": "gws",
+          "url": "ws://127.0.0.1:8000/connect"
+        },
+        {
+          "agent": "gorilla",
+          "url": "ws://127.0.0.1:8001/connect"
+        },
+        {
+          "agent": "nhooyr",
+          "url": "ws://127.0.0.1:8002/connect"
+        }
+      ],
+      "cases": [
+        "[0-9].*",
+        "10.*"
+      ],
+      "exclude-cases": [],
+      "exclude-agent-cases": {}
+    }
+  ],
+  "cases": [
+    "[0-9].*",
+    "10.*"
+  ],
+  "exclude-cases": [],
+  "exclude-agent-cases": {}
+}
