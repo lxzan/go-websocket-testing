@@ -6,16 +6,21 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
-const serverName = "gorilla"
+var serverName = "gorilla"
+
+func init() {
+	serverName = serverName + "-" + strings.ToLower(string(internal.AlphabetNumeric.Generate(6)))
+}
 
 func main() {
 	http.Handle("/metrics", promhttp.Handler())
 
 	upgrader := websocket.Upgrader{
-		EnableCompression: true,
+		EnableCompression: false,
 		CheckOrigin: func(r *http.Request) bool {
 			return true
 		},
@@ -32,6 +37,8 @@ func main() {
 		})
 
 		go func() {
+			defer socket.Close()
+
 			for {
 				op, p, err := socket.ReadMessage()
 				if err != nil {

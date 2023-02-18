@@ -6,10 +6,15 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
-const serverName = "gws"
+var serverName = "gws"
+
+func init() {
+	serverName = serverName + "-" + strings.ToLower(string(internal.AlphabetNumeric.Generate(6)))
+}
 
 func main() {
 	http.Handle("/metrics", promhttp.Handler())
@@ -18,7 +23,7 @@ func main() {
 
 	upgrader := gws.NewUpgrader(func(c *gws.Upgrader) {
 		c.CheckTextEncoding = true
-		c.CompressEnabled = true
+		c.CompressEnabled = false
 		c.EventHandler = handler
 	})
 

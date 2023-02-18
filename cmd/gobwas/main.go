@@ -1,17 +1,17 @@
 package main
 
 import (
-	"context"
+	"github.com/gobwas/ws"
+	"github.com/gobwas/ws/wsutil"
 	"github.com/lxzan/go-websocket-testing/internal"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
-	"nhooyr.io/websocket"
 	"strings"
 	"time"
 )
 
-var serverName = "nhooyr"
+var serverName = "gobwas"
 
 func init() {
 	serverName = serverName + "-" + strings.ToLower(string(internal.AlphabetNumeric.Generate(6)))
@@ -20,25 +20,23 @@ func init() {
 func main() {
 	http.Handle("/metrics", promhttp.Handler())
 
-	var options = &websocket.AcceptOptions{
-		CompressionMode: websocket.CompressionDisabled,
-	}
-
 	http.HandleFunc("/connect", func(writer http.ResponseWriter, request *http.Request) {
-		socket, err := websocket.Accept(writer, request, options)
+		socket, _, _, err := ws.UpgradeHTTP(request, writer)
 		if err != nil {
 			return
 		}
 
 		go func() {
+			defer socket.Close()
+
 			for {
-				op, p, err := socket.Read(context.Background())
+				p, _, err := wsutil.ReadClientData(socket)
 				if err != nil {
 					return
 				}
 
 				var t0 = time.Now()
-				_ = socket.Write(context.Background(), op, p)
+				_, _ = socket.Write(p)
 				latency := float64(time.Since(t0).Nanoseconds() / 1000)
 				internal.LatencyDistributionCollector.WithLabelValues(serverName).Observe(latency)
 				internal.LatencyPercentileCollector.WithLabelValues(serverName).Observe(latency)
@@ -46,7 +44,7 @@ func main() {
 		}()
 	})
 
-	if err := http.ListenAndServe(":8002", nil); err != nil {
+	if err := http.ListenAndServe(":8003", nil); err != nil {
 		log.Panic(err.Error())
 	}
 }
