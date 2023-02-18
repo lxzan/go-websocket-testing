@@ -1,0 +1,368 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 20,
+  "iteration": 1676700281894,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "oGDctqV4z"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.4.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(ws_request_latency_distribution_bucket{le=\"5\",application=\"${application}\"}[$__range]))",
+          "interval": "",
+          "legendFormat": "le=5",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(ws_request_latency_distribution_bucket{le=\"10\",application=\"${application}\"}[$__range]))-sum(increase(ws_request_latency_distribution_bucket{le=\"5\",application=\"${application}\"}[$__range]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "le=10",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(ws_request_latency_distribution_bucket{le=\"50\",application=\"${application}\"}[$__range]))-sum(increase(ws_request_latency_distribution_bucket{le=\"10\",application=\"${application}\"}[$__range]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "le=50",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(ws_request_latency_distribution_bucket{le=\"100\",application=\"${application}\"}[$__range]))-sum(increase(ws_request_latency_distribution_bucket{le=\"50\",application=\"${application}\"}[$__range]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "le=100",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "sum(increase(ws_request_latency_distribution_bucket{le=\"+Inf\",application=\"${application}\"}[$__range]))-sum(increase(ws_request_latency_distribution_bucket{le=\"100\",application=\"${application}\"}[$__range]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "le=Inf",
+          "refId": "E"
+        }
+      ],
+      "title": "websocket request latency / μs",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "oGDctqV4z"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": false
+      },
+      "pluginVersion": "8.4.4",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "ws_request_latency_percentile{quantile=\"0.5\",application=\"${application}\"}",
+          "interval": "",
+          "legendFormat": "P50",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "ws_request_latency_percentile{quantile=\"0.9\",application=\"${application}\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "P90",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "ws_request_latency_percentile{quantile=\"0.99\",application=\"${application}\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "P99",
+          "refId": "C"
+        }
+      ],
+      "title": "websocket request latency percentile / μs",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "oGDctqV4z"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "oGDctqV4z"
+          },
+          "exemplar": true,
+          "expr": "irate(ws_request_latency_distribution_count{application=\"$application\"}[2m])",
+          "interval": "",
+          "legendFormat": "{{application}}",
+          "refId": "A"
+        }
+      ],
+      "title": "websocket rps",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "nhooyr-su1cmh",
+          "value": "nhooyr-su1cmh"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "oGDctqV4z"
+        },
+        "definition": "query_result(avg_over_time(ws_request_latency_distribution_count{}[$__range]))",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "application",
+        "options": [],
+        "query": {
+          "query": "query_result(avg_over_time(ws_request_latency_distribution_count{}[$__range]))",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "regex": "/application=\\\"(.+?)\\\"/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "WebSocket Testing",
+  "uid": "38so9hJVk",
+  "version": 27,
+  "weekStart": ""
+}
