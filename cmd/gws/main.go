@@ -22,8 +22,6 @@ func main() {
 	handler := new(Handler)
 
 	upgrader := gws.NewUpgrader(func(c *gws.Upgrader) {
-		c.CheckTextEncoding = true
-		c.CompressEnabled = false
 		c.EventHandler = handler
 	})
 
@@ -42,7 +40,7 @@ func main() {
 }
 
 type Handler struct {
-	gws.BuiltinEventEngine
+	gws.BuiltinEventHandler
 }
 
 func (c *Handler) OnPing(socket *gws.Conn, payload []byte) {
@@ -54,6 +52,7 @@ func (c *Handler) OnMessage(socket *gws.Conn, message *gws.Message) {
 
 	var t0 = time.Now()
 	socket.WriteMessage(message.Opcode, message.Data.Bytes())
+	//socket.WriteAsync(message.Opcode, message.Data.Bytes())
 	latency := float64(time.Since(t0).Nanoseconds() / 1000)
 	internal.LatencyDistributionCollector.WithLabelValues(serverName).Observe(latency)
 	internal.LatencyPercentileCollector.WithLabelValues(serverName).Observe(latency)
