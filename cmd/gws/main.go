@@ -21,9 +21,7 @@ func main() {
 
 	handler := new(Handler)
 
-	upgrader := gws.NewUpgrader(func(c *gws.Upgrader) {
-		c.EventHandler = handler
-	})
+	upgrader := gws.NewUpgrader(handler, nil)
 
 	http.HandleFunc("/connect", func(writer http.ResponseWriter, request *http.Request) {
 		socket, err := upgrader.Accept(writer, request)
