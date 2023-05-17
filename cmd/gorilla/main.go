@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/gorilla/websocket"
 	"github.com/lxzan/go-websocket-testing/internal"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
 	"strings"
@@ -13,14 +12,14 @@ import (
 var serverName = "gorilla"
 
 func init() {
+	internal.SetNumCPU()
 	serverName = serverName + "-" + strings.ToLower(string(internal.AlphabetNumeric.Generate(6)))
 }
 
 func main() {
-	http.Handle("/metrics", promhttp.Handler())
-
 	upgrader := websocket.Upgrader{
-		EnableCompression: false,
+		EnableCompression: true,
+
 		CheckOrigin: func(r *http.Request) bool {
 			return true
 		},
@@ -45,11 +44,7 @@ func main() {
 					return
 				}
 
-				var t0 = time.Now()
 				_ = socket.WriteMessage(op, p)
-				latency := float64(time.Since(t0).Nanoseconds() / 1000)
-				internal.LatencyDistributionCollector.WithLabelValues(serverName).Observe(latency)
-				internal.LatencyPercentileCollector.WithLabelValues(serverName).Observe(latency)
 			}
 		}()
 	})

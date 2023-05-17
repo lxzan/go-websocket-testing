@@ -1,13 +1,13 @@
 package main
 
 import (
+	"compress/flate"
 	"context"
 	"flag"
 	"fmt"
 	"github.com/lesismal/nbio/nbhttp"
 	"github.com/lesismal/nbio/nbhttp/websocket"
 	"github.com/lxzan/go-websocket-testing/internal"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
 	"os"
 	"os/signal"
@@ -18,6 +18,7 @@ import (
 var serverName = "nbio"
 
 func init() {
+	internal.SetNumCPU()
 	serverName = serverName + "-" + strings.ToLower(string(internal.AlphabetNumeric.Generate(6)))
 }
 
@@ -28,6 +29,12 @@ var (
 
 func newUpgrader() *websocket.Upgrader {
 	u := websocket.NewUpgrader()
+	u.EnableCompression(true)
+	u.SetCompressionLevel(flate.BestSpeed)
+	u.CheckOrigin = func(r *http.Request) bool {
+		return true
+	}
+
 	if *onDataFrame {
 		u.OnDataFrame(func(c *websocket.Conn, messageType websocket.MessageType, fin bool, data []byte) {
 			// echo
@@ -35,17 +42,11 @@ func newUpgrader() *websocket.Upgrader {
 		})
 	} else {
 		u.OnMessage(func(c *websocket.Conn, messageType websocket.MessageType, data []byte) {
-			// echo
-			var t0 = time.Now()
 			c.WriteMessage(messageType, data)
-			latency := float64(time.Since(t0).Nanoseconds() / 1000)
-			internal.LatencyDistributionCollector.WithLabelValues(serverName).Observe(latency)
-			internal.LatencyPercentileCollector.WithLabelValues(serverName).Observe(latency)
 		})
 	}
 
 	u.OnClose(func(c *websocket.Conn, err error) {
-		//fmt.Println("OnClose:", c.RemoteAddr().String(), err)
 	})
 	return u
 }
@@ -70,8 +71,6 @@ func onWebsocket(w http.ResponseWriter, r *http.Request) {
 func main() {
 	flag.Parse()
 	mux := &http.ServeMux{}
-
-	mux.Handle("/metrics", promhttp.Handler())
 
 	mux.HandleFunc("/connect", onWebsocket)
 
