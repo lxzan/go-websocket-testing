@@ -4,40 +4,33 @@ import (
 	"github.com/gobwas/ws"
 	"github.com/gobwas/ws/wsutil"
 	"github.com/lxzan/go-websocket-testing/internal"
-	"log"
 	"net/http"
-	"strings"
 )
 
-var serverName = "gobwas"
-
-func init() {
-	internal.SetNumCPU()
-	serverName = serverName + "-" + strings.ToLower(string(internal.AlphabetNumeric.Generate(6)))
-}
-
 func main() {
-	http.HandleFunc("/connect", func(writer http.ResponseWriter, request *http.Request) {
-		socket, _, _, err := ws.UpgradeHTTP(request, writer)
+	internal.SetNumCPU()
+	http.ListenAndServe(":8003", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		conn, _, _, err := ws.UpgradeHTTP(r, w)
 		if err != nil {
 			return
+			// handle error
 		}
 
 		go func() {
-			defer socket.Close()
+			defer conn.Close()
 
 			for {
-				p, _, err := wsutil.ReadClientData(socket)
+				msg, op, err := wsutil.ReadClientData(conn)
 				if err != nil {
 					return
+					// handle error
 				}
-
-				_, _ = socket.Write(p)
+				err = wsutil.WriteServerMessage(conn, op, msg)
+				if err != nil {
+					return
+					// handle error
+				}
 			}
 		}()
-	})
-
-	if err := http.ListenAndServe(":8003", nil); err != nil {
-		log.Panic(err.Error())
-	}
+	}))
 }
