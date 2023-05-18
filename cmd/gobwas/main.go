@@ -17,22 +17,23 @@ func init() {
 }
 
 func main() {
-	http.HandleFunc("/connect", func(writer http.ResponseWriter, request *http.Request) {
-		socket, _, _, err := ws.UpgradeHTTP(request, writer)
+	http.HandleFunc("/connect", func(w http.ResponseWriter, r *http.Request) {
+		conn, _, _, err := ws.UpgradeHTTP(r, w)
 		if err != nil {
 			return
 		}
-
 		go func() {
-			defer socket.Close()
+			defer conn.Close()
 
 			for {
-				p, _, err := wsutil.ReadClientData(socket)
+				msg, op, err := wsutil.ReadClientData(conn)
 				if err != nil {
 					return
 				}
-
-				_, _ = socket.Write(p)
+				err = wsutil.WriteServerMessage(conn, op, msg)
+				if err != nil {
+					return
+				}
 			}
 		}()
 	})
