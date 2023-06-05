@@ -59,12 +59,12 @@ func onWebsocket(w http.ResponseWriter, r *http.Request) {
 	}
 	// time.Sleep(time.Second * 5)
 	upgrader := newUpgrader()
+	upgrader.BlockingModAsyncWrite = false
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		panic(err)
 	}
-	wsConn := conn.(*websocket.Conn)
-	wsConn.SetReadDeadline(time.Time{})
+	conn.SetReadDeadline(time.Time{})
 	//fmt.Println("OnOpen:", wsConn.RemoteAddr().String())
 }
 
