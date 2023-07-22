@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bytes"
 	"github.com/gorilla/websocket"
 	"github.com/lxzan/go-websocket-testing/internal"
-	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -40,17 +38,13 @@ func main() {
 		go func() {
 			defer socket.Close()
 
-			buf := make([]byte, 4000)
-			payload := bytes.NewBufferString("")
 			for {
-				op, reader, err := socket.NextReader()
+				op, message, err := socket.ReadMessage()
 				if err != nil {
 					return
 				}
 
-				payload.Reset()
-				_, _ = io.CopyBuffer(payload, reader, buf)
-				_ = socket.WriteMessage(op, payload.Bytes())
+				_ = socket.WriteMessage(op, message)
 			}
 		}()
 	})
