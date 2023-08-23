@@ -18,130 +18,130 @@
 
 <body>
 
-    <div id="container1"></div>
-    <div id="container2"></div>
+<div id="container1"></div>
+<div id="container2"></div>
 
-    <script src="https://unpkg.com/@antv/g2@next/dist/g2.min.js"></script>
-    <script>
-        const chart1 = new G2.Chart({
-            container: 'container1',
-            paddingLeft: 80,
-            theme: 'academy',
-            title: {
-                size: 10,
-                title: 'WebSocket Framework Benchmark - IOPS',
-                // subtitle: 'NumConnection=1000, GOMAXPROCS=4, CompressEnabled=false'
+<script src="https://unpkg.com/@antv/g2@next/dist/g2.min.js"></script>
+<script>
+    const chart1 = new G2.Chart({
+        container: 'container1',
+        paddingLeft: 80,
+        theme: 'academy',
+        title: {
+            size: 10,
+            title: 'WebSocket Framework Benchmark - IOPS',
+            align: 'center'
+        },
+        scale: {
+            y: {
+                // domain: [1000, 1500000], // 指定定义域
+                range: [1, 0], // 指定值域
             },
-            scale: {
-                y: {
-                    // domain: [1000, 1500000], // 指定定义域
-                    range: [1, 0], // 指定值域
-                },
-            },
-        });
+        },
+    });
 
-        chart1
-            .interval()
-            .label({
-                text: 'iops',
-                dy: -15,
-                formatter: (data) => {
-                    return (data / 1000).toFixed(0);
-                }
-            })
-            .data({
-                type: 'fetch',
-                value:
-                    '/final.json',
-                format: 'json',
-            })
-            .transform({ type: 'dodgeX' })
-            .axis('x', {
-                title: 'payload (byte)',
-                zIndex: 1
-            })
-            .axis('y', {
-                labelFormatter: '~s',
-                title: 'IOPS (kmsg/sec)',
-                titleSpacing: 20
-            })
-            .encode('x', 'payload')
-            .encode('y', 'iops')
-            .encode('color', 'framework')
-            .legend('color', {
-                title: false,
-                layout: {
-                    justifyContent: 'flex-end',
-                    alignItems: 'flex-end',
-                    flexDirection: 'column',
-                },
-            });
-
-        chart1
-            .interaction('tooltip', { shared: true })
-            .interaction('elementHighlight', { background: true });
-
-        chart1.render();
-    </script>
-
-    <script>
-        const chart2 = new G2.Chart({
-            container: 'container2',
-            paddingLeft: 80,
-            theme: 'academy',
-            title: {
-                size: 10,
-                title: 'WebSocket Framework Benchmark - Latency (P50)',
-                // subtitle: 'NumConnection=1000, GOMAXPROCS=4, CompressEnabled=false'
-            },
-            scale: {
-                y: {
-                    domain: [0, 600], // 指定定义域
-                    range: [1, 0], // 指定值域
-                },
+    chart1
+        .interval()
+        .label({
+            text: 'iops',
+            dy: -15,
+            formatter: (data) => {
+                return (data / 1000).toFixed(0);
+            }
+        })
+        .data({
+            type: 'fetch',
+            value:
+                '/final.json',
+            format: 'json',
+        })
+        .transform({type: 'dodgeX'})
+        .axis('x', {
+            title: 'payload (byte)',
+            zIndex: 1
+        })
+        .axis('y', {
+            labelFormatter: '~s',
+            title: 'IOPS (kmsg/sec)',
+            titleSpacing: 20
+        })
+        .encode('x', 'payload')
+        .encode('y', 'iops')
+        .encode('color', 'framework')
+        .legend('color', {
+            title: false,
+            layout: {
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+                flexDirection: 'column',
             },
         });
 
-        chart2
-            .interval()
-            .label({
-                text: 'p50',
-                dy: -15,
-            })
-            .data({
-                type: 'fetch',
-                value:
-                    '/final.json',
-                format: 'json',
-            })
-            .transform({ type: 'dodgeX' })
-            .axis('x', {
-                title: 'payload (byte)',
-                zIndex: 1
-            })
-            .axis('y', {
-                labelFormatter: '~s',
-                title: 'latency (ms)',
-                titleSpacing: 20
-            })
-            .encode('x', 'payload')
-            .encode('y', 'p50')
-            .encode('color', 'framework')
-            .legend('color', {
-                title: false,
-                layout: {
-                    justifyContent: 'flex-end',
-                    alignItems: 'flex-end',
-                    flexDirection: 'column',
-                },
-            });
+    chart1
+        .interaction('tooltip', {shared: true})
+        .interaction('elementHighlight', {background: true});
 
-        chart2
-            .interaction('tooltip', { shared: true })
-            .interaction('elementHighlight', { background: true });
+    chart1.render();
+</script>
 
-        chart2.render();
-    </script>
+<script>
+    const chart2 = new G2.Chart({
+        container: 'container2',
+        paddingLeft: 80,
+        theme: 'academy',
+        title: {
+            align: 'center',
+            size: 10,
+            title: 'WebSocket Framework Benchmark - Latency (P50)',
+        },
+        scale: {
+            y: {
+                domain: [0, 600], // 指定定义域
+                range: [1, 0], // 指定值域
+            },
+        },
+    });
+
+    chart2
+        .interval()
+        .label({
+            text: 'p50',
+            dy: -15,
+        })
+        .data({
+            type: 'fetch',
+            value:
+                '/final.json',
+            format: 'json',
+        })
+        .transform({type: 'dodgeX'})
+        .axis('x', {
+            title: 'payload (byte)',
+            zIndex: 1
+        })
+        .axis('y', {
+            labelFormatter: '~s',
+            title: 'latency (ms)',
+            titleSpacing: 20
+        })
+        .encode('x', 'payload')
+        .encode('y', 'p50')
+        .encode('color', 'framework')
+        .legend('color', {
+            title: false,
+            layout: {
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+                flexDirection: 'column',
+            },
+        });
+
+    chart2
+        .interaction('tooltip', {shared: true})
+        .interaction('elementHighlight', {background: true});
+
+    chart2.render();
+</script>
 
 </body>
 
