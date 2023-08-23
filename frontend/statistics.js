@@ -27,9 +27,9 @@ function loadFramework(framework) {
             payload: item.payload,
             framework: framework,
             iops: item.iops,
-            p50: item.p50,
-            p90: item.p90,
-            p99: item.p99,
+            p50: parseInt(item.p50),
+            p90: parseInt(item.p90),
+            p99: parseInt(item.p99),
         });
     })
 
