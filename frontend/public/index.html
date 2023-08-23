@@ -45,6 +45,9 @@
             .label({
                 text: 'iops',
                 dy: -15,
+                formatter: (data) => {
+                    return (data / 1000).toFixed(0);
+                }
             })
             .data({
                 type: 'fetch',
@@ -59,7 +62,7 @@
             })
             .axis('y', {
                 labelFormatter: '~s',
-                title: 'IOPS (msg/sec)',
+                title: 'IOPS (kmsg/sec)',
                 titleSpacing: 20
             })
             .encode('x', 'payload')

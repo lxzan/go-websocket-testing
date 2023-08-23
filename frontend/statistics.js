@@ -6,6 +6,7 @@ results.push(...loadFramework('gws'));
 results.push(...loadFramework('gorilla'));
 results.push(...loadFramework('nhooyr'));
 results.push(...loadFramework('gobwas'));
+results.push(...loadFramework('nbio'));
 console.log(results);
 fs.writeFileSync(pwd + '/public/final.json', JSON.stringify(results));
 
