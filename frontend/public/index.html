@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            height: 600px;
+            width: 1200px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container"></div>
+
+<script src="https://unpkg.com/@antv/g2@next/dist/g2.min.js"></script>
+<script>
+    const chart = new G2.Chart({
+        container: 'container',
+        paddingLeft: 80,
+        theme: 'academy',
+        title: {
+            title: 'WebSocket Framework Benchmark',
+            subtitle: 'NumConnection=1000, GOMAXPROCS=4, CompressEnabled=false'
+        },
+        scale: {
+            y: {
+                // domain: [1000, 1500000], // 指定定义域
+                range: [1, 0], // 指定值域
+            },
+        },
+    });
+
+    chart
+        .interval()
+        .label({
+            text: 'iops',
+            dy: -15,
+        })
+        .data({
+            type: 'fetch',
+            value:
+                '/final.json',
+            format: 'json',
+        })
+        .transform({type: 'dodgeX'})
+        .axis('x', {
+            title: 'Payload(byte)',
+            zIndex: 1
+        })
+        .axis('y', {
+            labelFormatter: '~s',
+            title: 'IOPS(msg/sec)',
+            titleSpacing: 20
+        })
+        .encode('x', 'payload')
+        .encode('y', 'iops')
+        .encode('color', 'framework')
+        .legend('color', {
+            title: false,
+            layout: {
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+                flexDirection: 'column',
+            },
+        });
+
+    chart
+        .interaction('tooltip', {shared: true})
+        .interaction('elementHighlight', {background: true});
+
+    chart.render();
+
+</script>
+</body>
+
+</html>
