@@ -8,7 +8,7 @@ require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/hertz-contrib/websocket v0.0.1
 	github.com/klauspost/compress v1.16.7 // indirect
-	github.com/lesismal/nbio v1.3.16
+	github.com/lesismal/nbio v1.3.17
 	github.com/lxzan/gws v1.6.8
 	github.com/prometheus/client_golang v1.14.0
 	nhooyr.io/websocket v1.8.7
