@@ -4,6 +4,7 @@ go websocket server testing
 ### 依赖项
 
 - go
+- wsbench
 - nodejs
 - pm2
 
