@@ -1,16 +1,22 @@
 # go-websocket-testing
 go websocket server testing
 
-### 依赖项
+### 语言环境
 
 - go
-- wsbench
 - nodejs
-- pm2
+
+### 安装依赖
+
+```bash
+npm install pm2 -g
+go install github.com/lxzan/wsbench@latest
+```
 
 ### 开始
 
 ```bash
+export PATH=$PATH:$GOPATH/bin
 make build
 pm2 start ./bin/*
 cd frontend

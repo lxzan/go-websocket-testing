@@ -92,7 +92,7 @@
         title: {
             align: 'center',
             size: 10,
-            title: 'WebSocket Framework Benchmark - Latency (P50)',
+            title: 'WebSocket Framework Benchmark - Latency (P90)',
         },
         scale: {
             y: {
@@ -105,7 +105,7 @@
     chart2
         .interval()
         .label({
-            text: 'p50',
+            text: 'p90',
             dy: -15,
         })
         .data({
@@ -125,7 +125,7 @@
             titleSpacing: 20
         })
         .encode('x', 'payload')
-        .encode('y', 'p50')
+        .encode('y', 'p90')
         .encode('color', 'framework')
         .legend('color', {
             title: false,

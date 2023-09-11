@@ -28,7 +28,9 @@ func main() {
 			log.Println(err.Error())
 			return
 		}
-		socket.ReadLoop()
+		go func() {
+			socket.ReadLoop()
+		}()
 	})
 
 	if err := http.ListenAndServe(":8000", nil); err != nil {
@@ -45,6 +47,6 @@ func (c *Handler) OnPing(socket *gws.Conn, payload []byte) {
 }
 
 func (c *Handler) OnMessage(socket *gws.Conn, message *gws.Message) {
-	defer message.Close()
-	socket.WriteMessage(message.Opcode, message.Data.Bytes())
+	socket.WriteMessage(message.Opcode, message.Bytes())
+	_ = message.Close()
 }
