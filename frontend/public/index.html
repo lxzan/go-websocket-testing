@@ -34,7 +34,7 @@
         },
         scale: {
             y: {
-                // domain: [1000, 1500000], // 指定定义域
+                // domain: [0, 640000], // 指定定义域
                 range: [1, 0], // 指定值域
             },
         },
@@ -92,11 +92,11 @@
         title: {
             align: 'center',
             size: 10,
-            title: 'WebSocket Framework Benchmark - Latency (P90)',
+            title: 'WebSocket Framework Benchmark - Latency (P95)',
         },
         scale: {
             y: {
-                // domain: [0, 600], // 指定定义域
+                // domain: [0, 1800], // 指定定义域
                 range: [1, 0], // 指定值域
             },
         },
@@ -105,7 +105,7 @@
     chart2
         .interval()
         .label({
-            text: 'p90',
+            text: 'p95',
             dy: -15,
         })
         .data({
@@ -125,7 +125,7 @@
             titleSpacing: 20
         })
         .encode('x', 'payload')
-        .encode('y', 'p90')
+        .encode('y', 'p95')
         .encode('color', 'framework')
         .legend('color', {
             title: false,

@@ -30,6 +30,7 @@ function loadFramework(framework) {
             iops: item.iops,
             p50: parseInt(item.p50),
             p90: parseInt(item.p90),
+            p95: parseInt(item.p95),
             p99: parseInt(item.p99),
         });
     })
