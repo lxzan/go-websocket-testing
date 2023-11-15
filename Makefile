@@ -12,4 +12,5 @@ build:
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/gobwas-${GOOS}-${GOARCH} cmd/gobwas/main.go
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/nhooyr-${GOOS}-${GOARCH} cmd/nhooyr/main.go
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/nbio-${GOOS}-${GOARCH} cmd/nbio/main.go
+	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/x-net-${GOOS}-${GOARCH} cmd/xnet/main.go
 

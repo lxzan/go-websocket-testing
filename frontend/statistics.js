@@ -5,8 +5,9 @@ let results = [];
 results.push(...loadFramework('gws'));
 results.push(...loadFramework('nbio'));
 results.push(...loadFramework('gorilla'));
-results.push(...loadFramework('nhooyr'));
+results.push(...loadFramework('x-net'));
 results.push(...loadFramework('gobwas'));
+results.push(...loadFramework('nhooyr'));
 console.log(results);
 fs.writeFileSync(pwd + '/public/final.json', JSON.stringify(results));
 
