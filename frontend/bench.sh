@@ -6,7 +6,7 @@ Concurrency=8
 
 rm ./logs/*
 
-for loop in 1 2 3
+for loop in 1 2 3 4 5
 do
     wsbench echo -c ${C} -n 2000000 -p 500 -u ws://127.0.0.1:8000/connect -o ./logs/gws.log --concurrency=${Concurrency} --latency
     sleep ${SLEEP}
@@ -20,7 +20,7 @@ do
     sleep ${SLEEP}
 done
 
-for loop in 1 2 3
+for loop in 1 2 3 4 5
 do
     wsbench echo -c ${C} -n 1000000 -p 2000 -u ws://127.0.0.1:8000/connect -o ./logs/gws.log --concurrency=${Concurrency} --latency
     sleep ${SLEEP}
@@ -34,7 +34,7 @@ do
     sleep ${SLEEP}
 done
 
-for loop in 1 2 3
+for loop in 1 2 3 4 5
 do
     wsbench echo -c ${C} -n 500000 -p 8000 -u ws://127.0.0.1:8000/connect -o ./logs/gws.log --concurrency=${Concurrency} --latency
     sleep ${SLEEP}
