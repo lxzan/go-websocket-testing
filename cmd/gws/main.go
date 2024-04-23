@@ -19,7 +19,7 @@ func main() {
 	handler := new(Handler)
 
 	upgrader := gws.NewUpgrader(handler, &gws.ServerOption{
-		CompressEnabled: true,
+		PermessageDeflate: gws.PermessageDeflate{Enabled: true},
 	})
 
 	http.HandleFunc("/connect", func(writer http.ResponseWriter, request *http.Request) {
