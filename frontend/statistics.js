@@ -9,6 +9,7 @@ results.push(...loadFramework('x-net'));
 results.push(...loadFramework('gobwas'));
 results.push(...loadFramework('nhooyr'));
 results.push(...loadFramework('quickws'));
+results.push(...loadFramework('greatws'));
 console.log(results);
 fs.writeFileSync(pwd + '/public/final.json', JSON.stringify(results));
 

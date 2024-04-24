@@ -1,8 +1,11 @@
 module github.com/lxzan/go-websocket-testing
 
-go 1.18
+go 1.21
+
+toolchain go1.21.7
 
 require (
+	github.com/antlabs/greatws v0.1.11
 	github.com/antlabs/quickws v0.1.11
 	github.com/gobwas/ws v1.3.2
 	github.com/gorilla/websocket v1.5.1
@@ -14,7 +17,7 @@ require (
 )
 
 require (
-	github.com/antlabs/wsutil v0.1.6 // indirect
+	github.com/antlabs/wsutil v0.1.7 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/dolthub/maphash v0.1.0 // indirect
