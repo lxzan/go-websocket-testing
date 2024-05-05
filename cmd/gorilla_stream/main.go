@@ -3,13 +3,14 @@ package main
 import (
 	"github.com/gorilla/websocket"
 	"github.com/lxzan/go-websocket-testing/internal"
+	"io"
 	"log"
 	"net/http"
 	"strings"
 	"time"
 )
 
-var serverName = "gorilla"
+var serverName = "gorilla_stream"
 
 func init() {
 	internal.SetNumCPU()
@@ -37,18 +38,30 @@ func main() {
 
 		go func() {
 			defer socket.Close()
+			buf := make([]byte, 4*1024)
 			for {
-				op, message, err := socket.ReadMessage()
-				if err != nil {
+				if err := readAndWrite(socket, buf); err != nil {
 					return
 				}
-
-				_ = socket.WriteMessage(op, message)
 			}
 		}()
 	})
 
-	if err := http.ListenAndServe(":8001", nil); err != nil {
+	if err := http.ListenAndServe(":8002", nil); err != nil {
 		log.Panic(err.Error())
 	}
+}
+
+func readAndWrite(socket *websocket.Conn, buf []byte) error {
+	op, r, err := socket.NextReader()
+	if err != nil {
+		return err
+	}
+	w, err := socket.NextWriter(op)
+	if err != nil {
+		return err
+	}
+	_, err = io.CopyBuffer(w, r, buf)
+	_ = w.Close()
+	return err
 }

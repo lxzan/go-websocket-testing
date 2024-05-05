@@ -81,7 +81,7 @@ func main() {
 	svr := nbhttp.NewServer(nbhttp.Config{
 		IOMod:   nbhttp.IOModBlocking,
 		Network: "tcp",
-		Addrs:   []string{"0.0.0.0:8004"},
+		Addrs:   []string{"0.0.0.0:8008"},
 		Handler: mux,
 	})
 

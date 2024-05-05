@@ -32,7 +32,7 @@ func main() {
 		}()
 	})
 
-	if err := http.ListenAndServe(":8006", nil); err != nil {
+	if err := http.ListenAndServe(":8007", nil); err != nil {
 		log.Panic(err.Error())
 	}
 }

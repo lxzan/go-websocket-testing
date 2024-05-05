@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"github.com/lxzan/go-websocket-testing/internal"
+	"io"
 	"log"
 	"net/http"
 	"nhooyr.io/websocket"
 	"strings"
 )
 
-var serverName = "nhooyr"
+var serverName = "nhooyr_stream"
 
 func init() {
 	internal.SetNumCPU()
@@ -30,17 +31,30 @@ func main() {
 
 		go func() {
 			defer socket.Close(websocket.StatusNormalClosure, "sky is falling")
+			buf := make([]byte, 4*1024)
 			for {
-				op, message, err := socket.Read(context.Background())
-				if err != nil {
+				if err := readAndWrite(socket, buf); err != nil {
 					return
 				}
-				_ = socket.Write(context.Background(), op, message)
 			}
 		}()
 	})
 
-	if err := http.ListenAndServe(":8003", nil); err != nil {
+	if err := http.ListenAndServe(":8004", nil); err != nil {
 		log.Panic(err.Error())
 	}
+}
+
+func readAndWrite(socket *websocket.Conn, buf []byte) error {
+	op, r, err := socket.Reader(context.Background())
+	if err != nil {
+		return err
+	}
+	w, err := socket.Writer(context.Background(), op)
+	if err != nil {
+		return err
+	}
+	_, err = io.CopyBuffer(w, r, buf)
+	_ = w.Close()
+	return err
 }

@@ -5,7 +5,6 @@ go 1.21
 toolchain go1.21.7
 
 require (
-	github.com/antlabs/greatws v0.1.11
 	github.com/antlabs/quickws v0.1.11
 	github.com/gobwas/ws v1.3.2
 	github.com/gorilla/websocket v1.5.1

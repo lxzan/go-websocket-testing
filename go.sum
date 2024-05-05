@@ -38,8 +38,6 @@ github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuy
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d/go.mod h1:rBZYJk541a8SKzHPHnH3zbiI+7dagKZ0cgpgrD7Fyho=
-github.com/antlabs/greatws v0.1.11 h1:WCQ40y1UpSrD2C+jGTjqWOcbBysFHzjer6nZuTEhNgU=
-github.com/antlabs/greatws v0.1.11/go.mod h1:A6ZdyTdwzIU/P75nj+IhI2lcdD2X9gNARIMqeGiwKHU=
 github.com/antlabs/quickws v0.1.11 h1:DQbm7iJkWKeLGv4OESXMi1DZwywVlT0iydl1hnksPhI=
 github.com/antlabs/quickws v0.1.11/go.mod h1:GaD8pVfWm5RBFGX8CY9wQ3EQ/FeadTRRBJuT/JUq+oM=
 github.com/antlabs/wsutil v0.1.7 h1:DVxFaS20mw16CMc11EjBIlkZQtcs+X0I1DI/J6l/AoE=
