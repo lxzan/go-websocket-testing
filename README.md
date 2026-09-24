@@ -27,4 +27,4 @@ sh bench.sh
 
 测试程序退出后, 访问 http://localhost:8080
 
-![bench](assets/bench.jpg)
+![bench](assets/bench.png)
