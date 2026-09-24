@@ -9,10 +9,11 @@ clean:
 build:
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/gws-${GOOS}-${GOARCH} cmd/gws/main.go
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/gorilla-${GOOS}-${GOARCH} cmd/gorilla/main.go
+	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/gorilla-stream-${GOOS}-${GOARCH} cmd/gorilla_stream/main.go
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/gobwas-${GOOS}-${GOARCH} cmd/gobwas/main.go
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/nhooyr-${GOOS}-${GOARCH} cmd/nhooyr/main.go
+	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/nhooyr-stream-${GOOS}-${GOARCH} cmd/nhooyr_stream/main.go
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/nbio-${GOOS}-${GOARCH} cmd/nbio/main.go
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/x-net-${GOOS}-${GOARCH} cmd/xnet/main.go
 	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/quickws-${GOOS}-${GOARCH} cmd/quickws/main.go
-	CGO_ENABLED=${CGO_ENABLED} GOOS=${GOOS} GOARCH=${GOARCH} go build -o bin/greatws-${GOOS}-${GOARCH} cmd/greatws/main.go
 

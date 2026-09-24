@@ -21,7 +21,7 @@
 <div id="container1"></div>
 <div id="container2"></div>
 
-<script src="https://unpkg.com/@antv/g2@next/dist/g2.min.js"></script>
+<script src="https://unpkg.com/@antv/g2/dist/g2.min.js"></script>
 <script>
     const chart1 = new G2.Chart({
         container: 'container1',
@@ -34,7 +34,7 @@
         },
         scale: {
             y: {
-                // domain: [0, 640000], // 指定定义域
+                domain: [0, 1800000], // 指定定义域
                 range: [1, 0], // 指定值域
             },
         },
@@ -96,7 +96,7 @@
         },
         scale: {
             y: {
-                domain: [0, 1200], // 指定定义域
+                domain: [0, 3500], // 指定定义域
                 range: [1, 0], // 指定值域
             },
         },
